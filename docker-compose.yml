@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  api:
+    build:
+      context: .
+      dockerfile: build/api/Dockerfile
+    command: ["./shorturl_api", "-s", "postgres"]
+    env_file:
+      - build/api/.env
+      - build/postgres/.env
+    ports:
+      - "3000:3000"
+      - "50051:50051"
+    restart: unless-stopped
+    networks:
+      - api_network
+
+  postgres:
+    image: postgres:16.0-alpine3.18
+    env_file:
+      - build/postgres/.env
+    volumes:
+      - ./build/postgres/scheme:/docker-entrypoint-initdb.d:ro
+      - ./data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - api_network
+
+networks:
+  api_network:
+    driver: bridge

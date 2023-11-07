@@ -1,0 +1,10 @@
+inpackage: True
+filename: "mock_{{.InterfaceName}}_test.go"
+with-expecter: True
+all: True
+dir: "{{.InterfaceDir}}"
+
+packages:
+  shorturl/internal/api:
+  shorturl/internal/encoder:
+  shorturl/internal/urlservice:

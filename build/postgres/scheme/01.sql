@@ -1,0 +1,11 @@
+CREATE TABLE IF NOT EXISTS original_urls (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    url TEXT NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS short_urls (
+    original_url TEXT PRIMARY KEY,
+    url VARCHAR(10) NOT NULL UNIQUE,
+
+    CONSTRAINT fk_url FOREIGN KEY (original_url) REFERENCES original_urls(url)
+);

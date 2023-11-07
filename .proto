@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package shorturl;
+
+option go_package = "internal/pb/pb";
+
+service ShortURLService {
+  rpc CreateShortURL(OriginalURL) returns (ShortURL) {}
+  rpc GetOriginalURL(ShortURL) returns (OriginalURL) {}
+}
+
+message OriginalURL {
+  string url = 1;
+}
+
+message ShortURL {
+  string url = 1;
+}
